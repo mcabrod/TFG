@@ -1,0 +1,597 @@
+---
+title: "TFG"
+author: "Minerva Cabria Rodriguez"
+date: "2023-04-17"
+output: html_document
+---
+```{r}
+#Librerias 
+library(gtrendsR)
+library(glmnet)
+library(glmnetUtils)
+library(forecast)
+library(trendecon)
+library(readxl)
+library(matrixStats)
+library(corrplot)
+library(dplyr)
+library(utils)
+library(FactoMineR)
+library(stats)
+library(factoextra)
+library(Metrics)
+library(glmnet)
+library(tidyr)
+library(scales)
+library(caret)
+library(car)
+library(MASS)
+library(readr)
+```
+
+
+```{r}
+#Descarga ESI
+#p.fecha.ini <- as.Date("2012-01-01") #a partir de aqui gt tiene más consistencia 
+p.fecha.ini <- as.Date("2007-01-01")
+url <- "https://ec.europa.eu/economy_finance/db_indicators/surveys/documents/series/nace2_ecfin_2209/main_indicators_sa_nace2.zip"
+
+download.file(url,destfile = paste0(getwd(),"/data/ESI.zip"))
+
+unzip(paste0(getwd(),"/data/ESI.zip"), exdir = paste0(getwd(),"/data"))
+
+ESI <- read_excel(paste0(getwd(),"/data/main_indicators_nace2.xlsx"), sheet = "MONTHLY")
+
+orig.tsESI<-window(ts(as.numeric(ESI$ES.ESI), start = c(1985, 1), freq = 12), start = as.numeric(c(format(as.Date(p.fecha.ini, format="%d/%m/%Y"),"%Y"),format(as.Date(p.fecha.ini, format="%d/%m/%Y"),"%m"))))
+#aquí lo estamos convirtiendo en serie temporal
+```
+
+```{r}
+#Descarga GT 
+regions <- c("ES") #me centro solo en la region de españa 
+
+termes <- read.csv("termes.txt",header = FALSE ) #puedo cambiar las palabras clave 
+termes <- termes$V1
+
+for (k in 1) {
+  all.gtseries <- list()
+  
+  for (j in regions) {
+    gtseries <- NULL
+    for (i in termes) {
+      print(i)
+      outgtrends <- ts_gtrends(keyword = i, geo = j, time = paste0("2007-01-01 ", Sys.Date()), wait = 10, retry = 15)
+      if (is.null(gtseries)) {
+        # Creamos un dataframe con tantas filas como nos haya devuelto gtrends
+        gtseries <- data.frame(matrix(nrow=nrow(outgtrends),ncol=0))    
+      }
+      gtseries[[i]] <- outgtrends$value
+    }
+    all.gtseries[[j]] <- gtseries
+  }
+  
+  save(all.gtseries,file = paste0("data/gtseries/allgtseries",k,".Rda"))
+}
+
+#extraction <- list() #me guardo las series descargadas 
+
+#for (i in 1) {
+  #load(paste0("data/gtseries/allgtseries",i,".Rda"))  
+  #extraction <- append(extraction,list(all.gtseries))
+#}
+  
+  
+ts.gtseries <- ts(gtseries,frequency = 12, start = c(2007,1)) #creo la serie temporal 
+ts.gtseries <- window(ts.gtseries, start = as.numeric(c(format(as.Date(p.fecha.ini, format="%d/%m/%Y"),"%Y"),format(as.Date(p.fecha.ini, format="%d/%m/%Y"),"%m")))) #me quedo con las fechas que interesan 
+
+#misma longitud
+#comprobamos la longitud de ambas series 
+length(orig.tsESI)
+nrow(ts.gtseries)
+
+# Same length for ESI and GT series
+tsESI <- head(orig.tsESI,nrow(ts.gtseries))
+ts.gtseries <- head(ts.gtseries,length(tsESI))
+
+length(tsESI)
+nrow(ts.gtseries)
+```
+
+```{r}
+SpainESI <- ESI$ES.ESI
+SpainESI <- SpainESI[-c(0:264),] #como es una lista eliminamos los primeros 264 elementos para quedarnos solo con el ESI a partir de 2007 ya que empieza en 1985
+SpainESI <- as.numeric(SpainESI)
+SpainESI <- ts(SpainESI, frequency = 12, start = c(2007,1), end = c(2023,2))
+SpainESI <- head(SpainESI, nrow(ts.gtseries))
+```
+
+```{r}
+# Carga de datos DESEMPLEO
+library(readr)
+paro <- read_excel('paro.xlsx', sheet = 'desemp')
+paro.ts <- paro$Desempleo
+
+paro.ts <- ts(paro.ts, frequency = 12, start = c(2007,1), end = c(2023,2))
+paro.ts <- head(paro.ts, nrow(ts.gtseries))
+```
+
+```{r}
+#Carga de datos INFLACION
+ipc <- read_excel('ipc.xlsx', sheet = 'ipc')
+ipc.ts <- ipc$IPC
+ipc.ts <- ts(ipc.ts, frequency = 12, start = c(2007,1), end = c(2023,2))
+ipc.ts <- head(ipc.ts, nrow(ts.gtseries))
+```
+
+
+```{r}
+#STEPWISE FUNCTION -------- on sample
+
+stepwise_function <- function(indicator, gtrends) {
+  
+  results <- data.frame(rsq = numeric(),
+                        mae = numeric(),
+                        rmse = numeric(),
+                        mape = numeric())
+  
+  # Desestacionalizar las variables de gtrends seleccionadas
+  gtrends_desest <- lapply(gtrends, function(x) {
+    d <- decompose(x, type = 'multiplicative')
+    return(x / d$seasonal)
+  })
+  #print(gtrends_desest)
+  
+  # Combinar la serie de esi con las variables de gtrends desestacionalizadas
+  df<- data.frame(indicator, gtrends_desest)
+  
+  # Realizar la regresión stepwise
+  model <- step(lm(indicator ~ ., data=df), direction="both")
+  
+  # Calcular las predicciones
+  predictions <- predict(model, df[, -1])
+  
+  # Calcular el error de la predicción
+  mae <- mean(abs(predictions - df[,1]))
+  rmse <- sqrt(mean((predictions - df[,1])^2))
+  rsquare <- summary(model)$adj.r.squared
+  mape <- mean(abs(predictions-df[,1])/df[,1])*100
+  
+  # Devolver los resultados
+  result <- data.frame(rsq=rsquare,
+                           mae=mae,
+                           rmse=rmse,
+                           mape = mape)
+  results <- rbind(results, result)
+  return(results)
+}
+```
+
+```{r}
+#STEPWISE ------------ sliding 
+stepwise_function_sliding <- function(indicator, gtrends, window_sizes, window_step, horizon) {
+  
+  results <- data.frame(wsize=1)
+  results[,2:(2+horizon-1)] <- rep(NA,horizon)
+  results[,(2+horizon):(2+(horizon*2)-1)] <- rep(NA,horizon)
+  results[,(2+(horizon*2)):(2+(horizon*3)-1)] <- rep(NA,horizon)
+  
+  colnames(results)[2:(2+horizon-1)] <- 
+    paste0("e", 1:horizon)
+  colnames(results)[(2+horizon):(2+(horizon*2)-1)] <- 
+    paste0("rmse", 1:horizon)
+  colnames(results)[(2+(horizon*2)):(2+(horizon*3)-1)] <- 
+    paste0("mape", 1:horizon)
+  
+  results <- results[-1,]
+  
+  deseasoned_series <-lapply(gtrends, function(x) {
+    d <- decompose(x, type = 'multiplicative')
+    return(x / d$seasonal)
+  })
+  
+  data <- data.frame(indicator, deseasoned_series)
+  
+  for (wsize in window_sizes) { 
+
+    for (i in seq(1, nrow(gtrends) - wsize - horizon + 1, window_step)) {
+      data_window <- data[i:(i + wsize - 1), ]
+      
+      model <- lm(indicator ~ ., data = data_window)
+      stepwise_model <- step(model)
+      
+      new <- data[(i + wsize):(i +wsize + horizon -1),]
+      y <- new$indicator
+      horizon_pred <- forecast(stepwise_model, newdata = new, h = horizon)
+      error <- abs(horizon_pred$mean - y)
+      rmse <-(error^2)
+      mape <- (abs(y - horizon_pred$mean) / y) * 100
+  
+      
+      result <- data.frame(wsize=wsize)
+      result[,2:(2+horizon-1)] <- error
+      result[,(2+horizon):(2+(horizon*2)-1)] <- rmse 
+      result[,(2+(horizon*2)):(2+(horizon*3)-1)] <- mape
+      
+      colnames(result)[2:(2+horizon-1)] <- 
+        paste0("e", 1:horizon)
+      colnames(result)[(2+horizon):(2+(horizon*2)-1)] <- 
+        paste0("rmse", 1:horizon)
+      colnames(result)[(2+(horizon*2)):(2+(horizon*3)-1)] <- 
+        paste0("mape", 1:horizon)
+      
+      results <- rbind(results, result)
+      
+    }
+    
+    #agrupamos por cada columna del dataframe para obtener la media 
+    out <- results  %>% group_by(wsize) %>% 
+      summarise(across(e1:e12, function(x)mean(abs(x))),
+                across(rmse1:rmse12, function(x)sqrt(mean(abs(x)))),  
+                across(mape1:mape12, function(x)mean(abs(x))))
+   
+    colnames(out)[2:(2+horizon-1)] <- paste0("MAE", 1:horizon)
+    colnames(out)[(2+horizon):(2+(2*horizon)-1)] <- 
+      paste0("RMSE", 1:horizon)
+    colnames(out)[(2+(horizon*2)):(2+(3*horizon)-1)] <- 
+      paste0("MAPE", 1:horizon)
+  }
+  
+  return(out)
+  
+}
+  
+```
+
+
+```{r}
+#PCA FUNCTION ------------ on sample 
+
+pca_function <- function(indicator, gtrends, varianza_explicada, umbral) {
+  
+  results <- data.frame(rsq = numeric(),
+                        mae = numeric(),
+                        rmse = numeric(),
+                        mape = numeric())
+  
+  correlations <- cor(indicator, gtrends)
+  
+  # Seleccionar las 5 variables con mayor correlación con esi
+  gtrends_vars <- colnames(gtrends)[which(abs(correlations) >= umbral)]
+  #print(gtrends_vars)
+  
+  # Desestacionalizar las variables de gtrends seleccionadas
+  gtrends_desest <- lapply(gtrends[, gtrends_vars], function(x) {
+    d <- decompose(x, type = 'multiplicative')
+    return(x / d$seasonal)
+  })
+  
+  gtrends_desest <- data.frame(gtrends_desest)
+  
+  #PCA sobre los datos 
+  pca = prcomp(gtrends_desest, scale = TRUE)
+  
+  var_explicada_acum <- cumsum(pca$sdev^2 / sum(pca$sdev^2))
+  n_cp <- which.max(var_explicada_acum >= varianza_explicada) # número de componentes principales
+
+  # Realizar la regresión lineal
+  variables_predictoras <- pca$x[, 1:n_cp] # utilizamos el número de componentes principales seleccionadas
+  
+  modelo <- lm(indicator ~ variables_predictoras)
+
+  # Evaluación del modelo
+  predicciones <- predict(modelo, newdata = data.frame(variables_predictoras))
+  rmse <- sqrt(mean((indicator - predicciones)^2))
+  mae <- mean(abs(indicator - predicciones))
+  rsquare <- summary(modelo)$r.squared
+  mape <- mean(abs(predicciones-indicator)/indicator)*100
+
+  # Devolver los resultados de la evaluación como salida de la función
+  result <- data.frame(rsq=rsquare,
+                           mae=mae,
+                           rmse=rmse,
+                           mape = mape)
+  results <- rbind(results, result)
+  return(results)
+  
+}
+```
+
+```{r}
+#PCA ----------- SLIDING 
+
+pca_function_sliding <- function(indicator, gtrends, umbral, varianza_explicada, window_sizes, window_step, horizon){
+  
+  results <- data.frame(wsize=1)
+  results[,2:(2+horizon-1)] <- rep(NA,horizon)
+  results[,(2+horizon):(2+(horizon*2)-1)] <- rep(NA,horizon)
+  results[,(2+(horizon*2)):(2+(horizon*3)-1)] <- rep(NA,horizon)
+  
+  colnames(results)[2:(2+horizon-1)] <- 
+    paste0("e", 1:horizon)
+  colnames(results)[(2+horizon):(2+(horizon*2)-1)] <- 
+    paste0("rmse", 1:horizon)
+  colnames(results)[(2+(horizon*2)):(2+(horizon*3)-1)] <- 
+    paste0("mape", 1:horizon)
+  
+  results <- results[-1,]
+  
+
+  deseasoned_series <-lapply(gtrends, function(x) {
+    d <- decompose(x, type = 'multiplicative')
+    return(x / d$seasonal)
+  })
+  
+  data <- data.frame(indicator, deseasoned_series)
+  
+  for (wsize in window_sizes) {
+    for (i in seq(1, nrow(gtrends) - wsize - horizon + 1, window_step)) {
+        # Seleccionamos la ventana actual de datos
+        data_window <- data[i:(i + wsize - 1), ]
+        
+        selected.terms <- colnames(gtrends[,abs(cor(data_window[,1],
+                                                    data_window[,-1]))>umbral])
+    
+        p.nvars <- 3
+        if (is.null(selected.terms) | length(selected.terms) < p.nvars) {
+            cutoff <- sort(abs(cor(data_window[,1], data_window[,-1])), 
+                           decreasing = TRUE)[p.nvars]
+            selected.terms <-  colnames(gtrends[,abs(cor(data_window[,1], 
+                                                         data_window[,-1]))>=cutoff])}
+        
+
+        new_series <- data_window[, which(colnames(data_window) %in% selected.terms)]
+        
+        pca = prcomp(new_series, scale = TRUE)
+        
+        var_explicada_acum <- cumsum(pca$sdev^2 / sum(pca$sdev^2))
+        n_cp <- which(max(var_explicada_acum) >= varianza_explicada)
+  
+        variables_predictoras <- pca$x[, 1:n_cp]
+        
+        data2 <- data.frame(indicator = data_window[,1], variables_predictoras)
+        
+        modelo <- lm(indicator ~., data = data2)
+        
+        new <- data[(i + wsize):(i +wsize + horizon -1),] 
+        new <- new[, which(colnames(new) %in% selected.terms)]
+        
+        norm.sel.series = new
+        for (i in 1:length(new)){
+          t = (new[,i]-pca$center[i]) / pca$scale[i]
+          norm.sel.series[,i] = t}
+        
+        
+        horizon_pred <- rep(NA, nrow(norm.sel.series))
+        
+        test.pc <- matrix(ncol = n_cp, nrow = nrow(norm.sel.series))
+          for (j in 1:nrow(norm.sel.series)) {
+            for (i in 1:n_cp) {
+              test.pc[j,i] <- sum(norm.sel.series[j,]*pca$rotation[,i])}
+            horizon_pred[j] <-
+              sum(c(1,test.pc[j,]) *modelo$coefficients)}
+        
+        y <- data[(i + wsize):(i +wsize + horizon-1),"indicator"]
+        error <- abs(horizon_pred - y)
+        rmse <- (error^2)
+        mape <- (abs(y - horizon_pred) / y) * 100
+        
+        result <- data.frame(wsize=wsize)
+        result[,2:(2+horizon-1)] <- error
+        result[,(2+horizon):(2+(horizon*2)-1)] <- rmse 
+        
+        result[,(2+(horizon*2)):(2+(horizon*3)-1)] <- mape
+        
+        colnames(result)[2:(2+horizon-1)] <- 
+          paste0("e", 1:horizon)
+        colnames(result)[(2+horizon):(2+(horizon*2)-1)] <- 
+          paste0("rmse", 1:horizon)
+        colnames(result)[(2+(horizon*2)):(2+(horizon*3)-1)] <- 
+          paste0("mape", 1:horizon)
+        
+        results <- rbind(results, result)
+        
+      }
+      
+      out <- results  %>% group_by(wsize) %>% 
+      summarise(across(e1:e12, function(x)mean(abs(x))),
+                across(rmse1:rmse12, function(x)sqrt(mean(abs(x)))),
+                across(mape1:mape12, function(x)mean(abs(x))))
+   
+      colnames(out)[2:(2+horizon-1)] <- paste0("MAE", 1:horizon)
+      colnames(out)[(2+horizon):(2+(2*horizon)-1)] <- 
+        paste0("RMSE", 1:horizon)
+      colnames(out)[(2+(horizon*2)):(2+(3*horizon)-1)] <- 
+        paste0("MAPE", 1:horizon)
+  }
+  
+  return(out)
+  
+}
+  
+```
+
+```{r}
+#LASSO FUNCTION --------- on sample
+library(glmnetUtils)
+#install.packages('glmnetUtils')
+lasso_function <- function(indicator, gtrends) {
+  
+  results <- data.frame(rsq = numeric(),
+                        mae = numeric(),
+                        rmse = numeric(),
+                        mape = numeric())
+  
+  
+  gtrends_desest <- lapply(gtrends, function(x) {
+    d <- decompose(x, type = 'multiplicative')
+    return(x / d$seasonal)
+  })
+  
+  df<- data.frame(indicator, gtrends_desest) 
+  
+  #perform k-fold cross-validation to find optimal lambda value
+  cv_model <- cv.glmnet(indicator ~., data=df, alpha = 1, nfolds = 5)
+  
+  #produce plot of test MSE by lambda value
+  #plot(cv_model) 
+  
+  #predictions
+  pred <- predict(cv_model, newdata = df, type = "response", s = "lambda.1se")
+  rmse <- sqrt(mean((indicator - pred)^2))
+  mae <- mean(abs(indicator - pred))
+  rsquare <- 1 - sum((indicator - pred)^2) / sum((indicator - mean(indicator))^2)
+  mape <- mean(abs(pred-indicator)/indicator)*100
+  
+  result <- data.frame(rsq=rsquare,
+                           mae=mae,
+                           rmse=rmse,
+                          mape = mape)
+  results <- rbind(results, result)
+  return(results)
+  
+}
+```
+
+
+```{r}
+#LASSO --------- sliding 
+lasso_function_sliding <- function(indicator, gtrends, window_sizes, window_step, horizon){
+  
+  results <- data.frame(wsize=1)
+  results[,2:(2+horizon-1)] <- rep(NA,horizon)
+  results[,(2+horizon):(2+(horizon*2)-1)] <- rep(NA,horizon)
+  results[,(2+(horizon*2)):(2+(horizon*3)-1)] <- rep(NA,horizon)
+  
+  colnames(results)[2:(2+horizon-1)] <- 
+    paste0("e", 1:horizon)
+  colnames(results)[(2+horizon):(2+(horizon*2)-1)] <- 
+    paste0("rmse", 1:horizon)
+  colnames(results)[(2+(horizon*2)):(2+(horizon*3)-1)] <- 
+    paste0("mape", 1:horizon)
+  
+  results <- results[-1,]
+  
+  deseasoned_series <-lapply(gtrends, function(x) {
+    d <- decompose(x, type = 'multiplicative')
+    return(x / d$seasonal)
+  })
+  
+  data <- data.frame(indicator, deseasoned_series)
+  
+  for (wsize in window_sizes) {
+
+      for (i in seq(1, nrow(gtrends) - wsize - horizon + 1, window_step)) {
+        data_window <- data[i:(i + wsize - 1), ]
+        
+        cv_model <- cv.glmnet(indicator ~., data=data_window, alpha=1, nfolds=5)
+        
+        new <- data[(i + wsize):(i +wsize + horizon -1),]
+        y <- new$indicator
+        
+        horizon_pred <- predict(cv_model, newdata = new, type = "response", s = "lambda.1se") #probar con el otro lamba 
+        
+        error <- abs(horizon_pred - y)
+        rmse <- (error^2)
+        mape <- (abs(y - horizon_pred) / y) * 100
+        
+        result <- data.frame(wsize=wsize)
+        result[,2:(2+horizon-1)] <- error
+        result[,(2+horizon):(2+(horizon*2)-1)] <- rmse 
+        result[,(2+(horizon*2)):(2+(horizon*3)-1)] <- mape
+        
+        colnames(result)[2:(2+horizon-1)] <- 
+          paste0("e", 1:horizon)
+        colnames(result)[(2+horizon):(2+(horizon*2)-1)] <- 
+          paste0("rmse", 1:horizon)
+        colnames(result)[(2+(horizon*2)):(2+(horizon*3)-1)] <- 
+          paste0("mape", 1:horizon)
+        
+        results <- rbind(results, result)
+        
+      }
+    
+    out <- results  %>% group_by(wsize) %>% 
+      summarise(across(e1:e12, function(x)mean(abs(x))),
+                across(rmse1:rmse12, function(x)sqrt(mean(abs(x)))),
+                across(mape1:mape12, function(x)mean(abs(x))))
+   
+    colnames(out)[2:(2+horizon-1)] <- paste0("MAE", 1:horizon)
+    colnames(out)[(2+horizon):(2+(2*horizon)-1)] <- 
+      paste0("RMSE", 1:horizon)
+    colnames(out)[(2+(horizon*2)):(2+(3*horizon)-1)] <- 
+      paste0("MAPE", 1:horizon)
+  }
+  
+  return(out)
+  
+}
+
+```
+
+#
+```{r}
+#EJECUCIONES
+esi_step_sliding <- stepwise_function_sliding(SpainESI, ts.gtseries, window_sizes = c(60,80,100,120), window_step = 1, horizon = 12)
+esi_step <- stepwise_function(SpainESI,ts.gtseries)
+
+esi_pca <- pca_function(SpainESI, ts.gtseries, varianza_explicada = 0.7, umbral = 0.5)
+esi_pca_sliding <- pca_function_sliding(SpainESI,ts.gtseries, varianza_explicada = 0.7, umbral = 0.5, window_sizes = c(60,80,100,120), window_step = 1, horizon = 12)
+
+esi_lasso <- lasso_function(SpainESI, ts.gtseries)
+esi_lasso_sliding <- lasso_function_sliding(SpainESI, ts.gtseries, window_sizes = c(60,80,100,120), window_step = 1, horizon = 12)
+
+paro_step_sliding <- stepwise_function_sliding(paro.ts, ts.gtseries, window_sizes = c(60,80,100,120), window_step = 1, horizon = 12)
+paro_step <- stepwise_function(paro.ts, ts.gtseries)
+
+paro_pca <- pca_function(paro.ts, ts.gtseries, varianza_explicada = 0.7, umbral = 0.5)
+paro_pca_sliding <- pca_function_sliding(paro.ts,ts.gtseries, varianza_explicada = 0.7, umbral = 0.5, window_sizes = c(60,80,100,120), window_step = 1, horizon = 12)
+
+
+paro_lasso <- lasso_function(paro.ts, ts.gtseries)
+paro_lasso_sliding <- lasso_function_sliding(paro.ts, ts.gtseries, window_sizes = c(60,80,100,120), window_step = 1, horizon = 12)
+
+
+ipc_step_sliding <- stepwise_function_sliding(ipc.ts, ts.gtseries, window_sizes = c(60,80,100,120), window_step = 1, horizon = 12)
+ipc_step <- stepwise_function(ipc.ts, ts.gtseries)
+
+ipc_pca <- pca_function(ipc.ts, ts.gtseries, varianza_explicada = 0.7, umbral = 0.5)
+ipc_pca_sliding <- pca_function_sliding(ipc.ts,ts.gtseries, varianza_explicada = 0.7, umbral = 0.5, window_sizes = c(60,80,100,120), window_step = 1, horizon = 12)
+
+
+
+ipc_lasso <- lasso_function(ipc.ts, ts.gtseries)
+ipc_lasso_sliding <- lasso_function_sliding(ipc.ts, ts.gtseries, window_sizes = c(60,80,100,120), window_step = 1, horizon = 12)
+```
+
+```{r} 
+#PARA LOS GRAFICOS ON SAMPLE (EXCEL TODO JUNTO)
+library(readxl)
+library(xlsx)
+esi_on_sample <- data.frame(step = esi_step, pca = esi_pca, lasso = esi_lasso)
+write.xlsx(esi_on_sample, file = "C:/Users/Minerva/Desktop/TFG/ESIon.xlsx")
+
+paro_on_sample <- data.frame(step = paro_step, pca = paro_pca, lasso = paro_lasso)
+write.xlsx(paro_on_sample, file = "C:/Users/Minerva/Desktop/TFG/PAROon.xlsx")
+
+ipc_on_sample <- data.frame(step = ipc_step, pca = ipc_pca, lasso=ipc_lasso)
+write.xlsx(ipc_on_sample, file = "C:/Users/Minerva/Desktop/TFG/IPCon.xlsx")
+```
+
+
+```{r}
+#PARA LOS GRAFICOS SLIDING (UN EXCEL POR CADA MODELO) 
+write.xlsx(esi_step_sliding, file = "C:/Users/Minerva/Desktop/TFG/ESIstep_sliding.xlsx" )
+write.xlsx(esi_pca_sliding, file = "C:/Users/Minerva/Desktop/TFG/ESIpca_sliding.xlsx" )
+write.xlsx(esi_lasso_sliding, file = "C:/Users/Minerva/Desktop/TFG/ESIlasso_sliding.xlsx" )
+write.xlsx(paro_step_sliding, file = "C:/Users/Minerva/Desktop/TFG/PAROstep_sliding.xlsx" )
+write.xlsx(paro_pca_sliding, file = "C:/Users/Minerva/Desktop/TFG/PAROpca_sliding.xlsx" )
+write.xlsx(paro_lasso_sliding, file = "C:/Users/Minerva/Desktop/TFG/PAROlasso_sliding.xlsx" )
+write.xlsx(ipc_step_sliding, file = "C:/Users/Minerva/Desktop/TFG/IPCstep_sliding.xlsx" )
+write.xlsx(ipc_pca_sliding, file = "C:/Users/Minerva/Desktop/TFG/IPCpca_sliding.xlsx" )
+write.xlsx(ipc_lasso_sliding, file = "C:/Users/Minerva/Desktop/TFG/IPClasso_sliding.xlsx" )
+```
+
+
+
+
+
