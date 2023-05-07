@@ -1,0 +1,1023 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 20224.22.1117.1841                               -->
+<workbook original-version='18.1' source-build='2022.4.0 (20224.22.1117.1841)' source-platform='win' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <_.fcp.AnimationOnByDefault.true...AnimationOnByDefault />
+    <_.fcp.MarkAnimation.true...MarkAnimation />
+    <_.fcp.ObjectModelEncapsulateLegacy.true...ObjectModelEncapsulateLegacy />
+    <_.fcp.ObjectModelTableType.true...ObjectModelTableType />
+    <_.fcp.SchemaViewerObjectModel.true...SchemaViewerObjectModel />
+    <SheetIdentifierTracking />
+    <SortTagCleanup />
+    <WindowsPersistSimpleIdentifiers />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <_.fcp.AnimationOnByDefault.false...style>
+    <_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule element='animation'>
+      <_.fcp.AnimationOnByDefault.false...format attr='animation-on' value='ao-on' />
+    </_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule>
+  </_.fcp.AnimationOnByDefault.false...style>
+  <datasources>
+    <datasource caption='Sheet1 (PAROon)' inline='true' name='federated.1q6p0jt0dat0rx1g6a2f11qjo8pn' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='PAROon' name='excel-direct.0z7500q1tsqpf716k051i064wzhw'>
+            <connection class='excel-direct' cleaning='no' compat='no' dataRefreshTime='' filename='C:/Users/Minerva/Desktop/TFG/PAROon.xlsx' interpretationMode='0' password='' server='' validate='no' />
+          </named-connection>
+        </named-connections>
+        <_.fcp.ObjectModelEncapsulateLegacy.false...relation connection='excel-direct.0z7500q1tsqpf716k051i064wzhw' name='Sheet1' table='[Sheet1$]' type='table'>
+          <columns gridOrigin='A1:M2:no:A1:M2:0' header='yes' outcome='2'>
+            <column datatype='string' name='F1' ordinal='0' />
+            <column datatype='real' name='step.rsq' ordinal='1' />
+            <column datatype='real' name='step.mae' ordinal='2' />
+            <column datatype='real' name='step.rmse' ordinal='3' />
+            <column datatype='real' name='step.mape' ordinal='4' />
+            <column datatype='real' name='pca.rsq' ordinal='5' />
+            <column datatype='real' name='pca.mae' ordinal='6' />
+            <column datatype='real' name='pca.rmse' ordinal='7' />
+            <column datatype='real' name='pca.mape' ordinal='8' />
+            <column datatype='real' name='lasso.rsq' ordinal='9' />
+            <column datatype='real' name='lasso.mae' ordinal='10' />
+            <column datatype='real' name='lasso.rmse' ordinal='11' />
+            <column datatype='real' name='lasso.mape' ordinal='12' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.false...relation>
+        <_.fcp.ObjectModelEncapsulateLegacy.true...relation connection='excel-direct.0z7500q1tsqpf716k051i064wzhw' name='Sheet1' table='[Sheet1$]' type='table'>
+          <columns gridOrigin='A1:M2:no:A1:M2:0' header='yes' outcome='2'>
+            <column datatype='string' name='F1' ordinal='0' />
+            <column datatype='real' name='step.rsq' ordinal='1' />
+            <column datatype='real' name='step.mae' ordinal='2' />
+            <column datatype='real' name='step.rmse' ordinal='3' />
+            <column datatype='real' name='step.mape' ordinal='4' />
+            <column datatype='real' name='pca.rsq' ordinal='5' />
+            <column datatype='real' name='pca.mae' ordinal='6' />
+            <column datatype='real' name='pca.rmse' ordinal='7' />
+            <column datatype='real' name='pca.mape' ordinal='8' />
+            <column datatype='real' name='lasso.rsq' ordinal='9' />
+            <column datatype='real' name='lasso.mae' ordinal='10' />
+            <column datatype='real' name='lasso.rmse' ordinal='11' />
+            <column datatype='real' name='lasso.mape' ordinal='12' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.true...relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[Sheet1]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='integer' name='context'>0</attribute>
+              <attribute datatype='string' name='gridOrigin'>&quot;A1:M2:no:A1:M2:0&quot;</attribute>
+              <attribute datatype='boolean' name='header'>true</attribute>
+              <attribute datatype='integer' name='outcome'>2</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>F1</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[F1]</local-name>
+            <parent-name>[Sheet1]</parent-name>
+            <remote-alias>F1</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <collation flag='1' name='LES_RES_S2' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;WSTR&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[Sheet1_448592B9BF8C4E52B630B6A58C1D4E96]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>step.rsq</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[step.rsq]</local-name>
+            <parent-name>[Sheet1]</parent-name>
+            <remote-alias>step.rsq</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>15</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;R8&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[Sheet1_448592B9BF8C4E52B630B6A58C1D4E96]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>step.mae</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[step.mae]</local-name>
+            <parent-name>[Sheet1]</parent-name>
+            <remote-alias>step.mae</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>15</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;R8&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[Sheet1_448592B9BF8C4E52B630B6A58C1D4E96]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>step.rmse</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[step.rmse]</local-name>
+            <parent-name>[Sheet1]</parent-name>
+            <remote-alias>step.rmse</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>15</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;R8&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[Sheet1_448592B9BF8C4E52B630B6A58C1D4E96]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>step.mape</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[step.mape]</local-name>
+            <parent-name>[Sheet1]</parent-name>
+            <remote-alias>step.mape</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>15</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;R8&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[Sheet1_448592B9BF8C4E52B630B6A58C1D4E96]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>pca.rsq</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[pca.rsq]</local-name>
+            <parent-name>[Sheet1]</parent-name>
+            <remote-alias>pca.rsq</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>15</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;R8&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[Sheet1_448592B9BF8C4E52B630B6A58C1D4E96]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>pca.mae</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[pca.mae]</local-name>
+            <parent-name>[Sheet1]</parent-name>
+            <remote-alias>pca.mae</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>15</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;R8&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[Sheet1_448592B9BF8C4E52B630B6A58C1D4E96]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>pca.rmse</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[pca.rmse]</local-name>
+            <parent-name>[Sheet1]</parent-name>
+            <remote-alias>pca.rmse</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>15</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;R8&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[Sheet1_448592B9BF8C4E52B630B6A58C1D4E96]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>pca.mape</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[pca.mape]</local-name>
+            <parent-name>[Sheet1]</parent-name>
+            <remote-alias>pca.mape</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>15</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;R8&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[Sheet1_448592B9BF8C4E52B630B6A58C1D4E96]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>lasso.rsq</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[lasso.rsq]</local-name>
+            <parent-name>[Sheet1]</parent-name>
+            <remote-alias>lasso.rsq</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>15</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;R8&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[Sheet1_448592B9BF8C4E52B630B6A58C1D4E96]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>lasso.mae</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[lasso.mae]</local-name>
+            <parent-name>[Sheet1]</parent-name>
+            <remote-alias>lasso.mae</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>15</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;R8&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[Sheet1_448592B9BF8C4E52B630B6A58C1D4E96]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>lasso.rmse</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[lasso.rmse]</local-name>
+            <parent-name>[Sheet1]</parent-name>
+            <remote-alias>lasso.rmse</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>15</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;R8&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[Sheet1_448592B9BF8C4E52B630B6A58C1D4E96]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>lasso.mape</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[lasso.mape]</local-name>
+            <parent-name>[Sheet1]</parent-name>
+            <remote-alias>lasso.mape</remote-alias>
+            <ordinal>12</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>15</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;R8&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[Sheet1_448592B9BF8C4E52B630B6A58C1D4E96]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column datatype='string' name='[:Measure Names]' role='dimension' type='nominal'>
+        <aliases>
+          <alias key='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:lasso.mae:qk]&quot;' value='Lasso.Mae' />
+          <alias key='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:lasso.mape:qk]&quot;' value='Lasso.Mape' />
+          <alias key='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:lasso.rmse:qk]&quot;' value='Lasso.Rmse' />
+          <alias key='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:lasso.rsq:qk]&quot;' value='Lasso.Rsq' />
+          <alias key='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:pca.mae:qk]&quot;' value='Pca.Mae' />
+          <alias key='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:pca.mape:qk]&quot;' value='Pca.Mape' />
+          <alias key='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:pca.rmse:qk]&quot;' value='Pca.Rmse' />
+          <alias key='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:pca.rsq:qk]&quot;' value='Pca.Rsq' />
+          <alias key='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:step.mae:qk]&quot;' value='Step.Mae' />
+          <alias key='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:step.mape:qk]&quot;' value='Step.Mape' />
+          <alias key='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:step.rmse:qk]&quot;' value='Step.Rmse' />
+          <alias key='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:step.rsq:qk]&quot;' value='Step.Rsq' />
+        </aliases>
+      </column>
+      <_.fcp.ObjectModelTableType.true...column caption='Sheet1' datatype='table' name='[__tableau_internal_object_id__].[Sheet1_448592B9BF8C4E52B630B6A58C1D4E96]' role='measure' type='quantitative' />
+      <column caption='Lasso.Mae' datatype='real' name='[lasso.mae]' role='measure' type='quantitative' />
+      <column caption='Lasso.Mape' datatype='real' name='[lasso.mape]' role='measure' type='quantitative' />
+      <column caption='Lasso.Rmse' datatype='real' name='[lasso.rmse]' role='measure' type='quantitative' />
+      <column caption='Lasso.Rsq' datatype='real' name='[lasso.rsq]' role='measure' type='quantitative' />
+      <column caption='Pca.Mae' datatype='real' name='[pca.mae]' role='measure' type='quantitative' />
+      <column caption='Pca.Mape' datatype='real' name='[pca.mape]' role='measure' type='quantitative' />
+      <column caption='Pca.Rmse' datatype='real' name='[pca.rmse]' role='measure' type='quantitative' />
+      <column caption='Pca.Rsq' datatype='real' name='[pca.rsq]' role='measure' type='quantitative' />
+      <column caption='Step.Mae' datatype='real' name='[step.mae]' role='measure' type='quantitative' />
+      <column caption='Step.Mape' datatype='real' name='[step.mape]' role='measure' type='quantitative' />
+      <column caption='Step.Rmse' datatype='real' name='[step.rmse]' role='measure' type='quantitative' />
+      <column caption='Step.Rsq' datatype='real' name='[step.rsq]' role='measure' type='quantitative' />
+      <column-instance column='[lasso.mae]' derivation='Avg' name='[avg:lasso.mae:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[lasso.mape]' derivation='Avg' name='[avg:lasso.mape:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[lasso.rmse]' derivation='Avg' name='[avg:lasso.rmse:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[lasso.rsq]' derivation='Avg' name='[avg:lasso.rsq:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[pca.mae]' derivation='Avg' name='[avg:pca.mae:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[pca.mape]' derivation='Avg' name='[avg:pca.mape:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[pca.rmse]' derivation='Avg' name='[avg:pca.rmse:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[pca.rsq]' derivation='Avg' name='[avg:pca.rsq:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[step.mae]' derivation='Avg' name='[avg:step.mae:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[step.mape]' derivation='Avg' name='[avg:step.mape:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[step.rmse]' derivation='Avg' name='[avg:step.rmse:qk]' pivot='key' type='quantitative' />
+      <column-instance column='[step.rsq]' derivation='Avg' name='[avg:step.rsq:qk]' pivot='key' type='quantitative' />
+      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;España&quot;' />
+      </semantic-values>
+      <date-options start-of-week='monday' />
+      <_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+        <objects>
+          <object caption='Sheet1' id='Sheet1_448592B9BF8C4E52B630B6A58C1D4E96'>
+            <properties context=''>
+              <relation connection='excel-direct.0z7500q1tsqpf716k051i064wzhw' name='Sheet1' table='[Sheet1$]' type='table'>
+                <columns gridOrigin='A1:M2:no:A1:M2:0' header='yes' outcome='2'>
+                  <column datatype='string' name='F1' ordinal='0' />
+                  <column datatype='real' name='step.rsq' ordinal='1' />
+                  <column datatype='real' name='step.mae' ordinal='2' />
+                  <column datatype='real' name='step.rmse' ordinal='3' />
+                  <column datatype='real' name='step.mape' ordinal='4' />
+                  <column datatype='real' name='pca.rsq' ordinal='5' />
+                  <column datatype='real' name='pca.mae' ordinal='6' />
+                  <column datatype='real' name='pca.rmse' ordinal='7' />
+                  <column datatype='real' name='pca.mape' ordinal='8' />
+                  <column datatype='real' name='lasso.rsq' ordinal='9' />
+                  <column datatype='real' name='lasso.mae' ordinal='10' />
+                  <column datatype='real' name='lasso.rmse' ordinal='11' />
+                  <column datatype='real' name='lasso.mape' ordinal='12' />
+                </columns>
+              </relation>
+            </properties>
+          </object>
+        </objects>
+      </_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='mae paro'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run bold='true' fontalignment='1'>MAE - DESEMPLEO</run>
+            <run fontalignment='1'>Æ&#10;</run>
+            <run bold='true' fontalignment='1' fontcolor='#606b76' fontsize='12'>Evaluación ventana deslizante</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Sheet1 (PAROon)' name='federated.1q6p0jt0dat0rx1g6a2f11qjo8pn' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1q6p0jt0dat0rx1g6a2f11qjo8pn'>
+            <column-instance column='[lasso.mae]' derivation='Avg' name='[avg:lasso.mae:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[pca.mae]' derivation='Avg' name='[avg:pca.mae:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[step.mae]' derivation='Avg' name='[avg:step.mae:qk]' pivot='key' type='quantitative' />
+            <column caption='Lasso.Mae' datatype='real' name='[lasso.mae]' role='measure' type='quantitative' />
+            <column caption='Pca.Mae' datatype='real' name='[pca.mae]' role='measure' type='quantitative' />
+            <column caption='Step.Mae' datatype='real' name='[step.mae]' role='measure' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:pca.mae:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:lasso.mae:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:step.mae:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <manual-sort column='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[:Measure Names]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:pca.mae:qk]&quot;</bucket>
+              <bucket>&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:lasso.mae:qk]&quot;</bucket>
+              <bucket>&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:step.mae:qk]&quot;</bucket>
+            </dictionary>
+          </manual-sort>
+          <slices>
+            <column>[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[:Measure Names]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' palette='red_10_0' type='interpolated' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' />
+              <text column='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[:Measure Names]</rows>
+        <cols>[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]</cols>
+      </table>
+      <simple-id uuid='{DEC26A27-D56C-4E9B-A96A-16E43703B4F9}' />
+    </worksheet>
+    <worksheet name='mape paro'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run bold='true' fontalignment='1'>MAPE - DESEMPLEO</run>
+            <run fontalignment='1'>Æ&#10;</run>
+            <run bold='true' fontalignment='1' fontcolor='#606b76' fontsize='12'>Evaluación on sample </run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Sheet1 (PAROon)' name='federated.1q6p0jt0dat0rx1g6a2f11qjo8pn' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1q6p0jt0dat0rx1g6a2f11qjo8pn'>
+            <column-instance column='[lasso.mape]' derivation='Avg' name='[avg:lasso.mape:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[pca.mape]' derivation='Avg' name='[avg:pca.mape:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[step.mape]' derivation='Avg' name='[avg:step.mape:qk]' pivot='key' type='quantitative' />
+            <column caption='Lasso.Mape' datatype='real' name='[lasso.mape]' role='measure' type='quantitative' />
+            <column caption='Pca.Mape' datatype='real' name='[pca.mape]' role='measure' type='quantitative' />
+            <column caption='Step.Mape' datatype='real' name='[step.mape]' role='measure' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:pca.mape:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:lasso.mape:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:step.mape:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <manual-sort column='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[:Measure Names]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:pca.mape:qk]&quot;</bucket>
+              <bucket>&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:lasso.mape:qk]&quot;</bucket>
+              <bucket>&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:step.mape:qk]&quot;</bucket>
+            </dictionary>
+          </manual-sort>
+          <slices>
+            <column>[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[:Measure Names]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='text-format' field='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' value='n#,##0.00;-#,##0.00' />
+          </style-rule>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' palette='purple_10_0' type='interpolated' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' />
+              <text column='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' />
+            </encodings>
+            <customized-label>
+              <formatted-text>
+                <run>&lt;</run>
+                <run>[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]</run>
+                <run>&gt;%</run>
+              </formatted-text>
+            </customized-label>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[:Measure Names]</rows>
+        <cols>[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]</cols>
+      </table>
+      <simple-id uuid='{79193F4C-4211-45DC-B088-386B3FBE853A}' />
+    </worksheet>
+    <worksheet name='rmse paro'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run bold='true' fontalignment='1'>RMSE - DESEMPLEO</run>
+            <run fontalignment='1'>Æ&#10;</run>
+            <run bold='true' fontalignment='1' fontcolor='#606b76' fontsize='12'>Evaluación on sample </run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Sheet1 (PAROon)' name='federated.1q6p0jt0dat0rx1g6a2f11qjo8pn' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1q6p0jt0dat0rx1g6a2f11qjo8pn'>
+            <column-instance column='[lasso.rmse]' derivation='Avg' name='[avg:lasso.rmse:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[pca.rmse]' derivation='Avg' name='[avg:pca.rmse:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[step.rmse]' derivation='Avg' name='[avg:step.rmse:qk]' pivot='key' type='quantitative' />
+            <column caption='Lasso.Rmse' datatype='real' name='[lasso.rmse]' role='measure' type='quantitative' />
+            <column caption='Pca.Rmse' datatype='real' name='[pca.rmse]' role='measure' type='quantitative' />
+            <column caption='Step.Rmse' datatype='real' name='[step.rmse]' role='measure' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:pca.rmse:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:lasso.rmse:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:step.rmse:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <manual-sort column='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[:Measure Names]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:pca.rmse:qk]&quot;</bucket>
+              <bucket>&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:lasso.rmse:qk]&quot;</bucket>
+              <bucket>&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:step.rmse:qk]&quot;</bucket>
+            </dictionary>
+          </manual-sort>
+          <slices>
+            <column>[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[:Measure Names]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' palette='blue_teal_10_0' type='interpolated' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' />
+              <text column='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[:Measure Names]</rows>
+        <cols>[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]</cols>
+      </table>
+      <simple-id uuid='{672D0E72-9CE7-4019-B530-8EEDCF60B851}' />
+    </worksheet>
+    <worksheet name='rsq paro'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run bold='true' fontalignment='1'>RSQ - DESEMPLEO</run>
+            <run fontalignment='1'>Æ&#10;</run>
+            <run bold='true' fontalignment='1' fontcolor='#606b76' fontsize='12'>Evaluación on sample</run>
+            <run fontalignment='1' fontsize='12'>Æ </run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Sheet1 (PAROon)' name='federated.1q6p0jt0dat0rx1g6a2f11qjo8pn' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1q6p0jt0dat0rx1g6a2f11qjo8pn'>
+            <column-instance column='[lasso.rsq]' derivation='Avg' name='[avg:lasso.rsq:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[pca.rsq]' derivation='Avg' name='[avg:pca.rsq:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[step.rsq]' derivation='Avg' name='[avg:step.rsq:qk]' pivot='key' type='quantitative' />
+            <column caption='Lasso.Rsq' datatype='real' name='[lasso.rsq]' role='measure' type='quantitative' />
+            <column caption='Pca.Rsq' datatype='real' name='[pca.rsq]' role='measure' type='quantitative' />
+            <column caption='Step.Rsq' datatype='real' name='[step.rsq]' role='measure' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:step.rsq:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:lasso.rsq:qk]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:pca.rsq:qk]&quot;' />
+            </groupfilter>
+          </filter>
+          <manual-sort column='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[:Measure Names]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:step.rsq:qk]&quot;</bucket>
+              <bucket>&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:lasso.rsq:qk]&quot;</bucket>
+              <bucket>&quot;[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[avg:pca.rsq:qk]&quot;</bucket>
+            </dictionary>
+          </manual-sort>
+          <slices>
+            <column>[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[:Measure Names]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='cell'>
+            <format attr='text-format' field='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' value='n#,##0.00;-#,##0.00' />
+          </style-rule>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' palette='orange_10_0' type='interpolated' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' />
+              <text column='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[:Measure Names]</rows>
+        <cols>[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]</cols>
+      </table>
+      <simple-id uuid='{11D85A34-4AAC-4D1E-9C8A-2D4AC6E68881}' />
+    </worksheet>
+  </worksheets>
+  <windows source-height='30'>
+    <window class='worksheet' name='mae paro'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='100'>
+            <card pane-specification-id='0' param='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{D4E4020C-7BB0-4429-9BF0-2D75F05E6941}' />
+    </window>
+    <window class='worksheet' name='mape paro'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='100'>
+            <card pane-specification-id='0' param='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{920395E3-034E-4349-84BC-73352D4B9D58}' />
+    </window>
+    <window class='worksheet' name='rmse paro'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='100'>
+            <card pane-specification-id='0' param='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{286D7CE0-F045-45AD-A80E-7898BDEA09E8}' />
+    </window>
+    <window class='worksheet' maximized='true' name='rsq paro'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='100'>
+            <card pane-specification-id='0' param='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{0B1E51E3-C436-467E-804C-0EEC270201B8}' />
+    </window>
+  </windows>
+  <thumbnails>
+    <thumbnail height='119' name='mae paro' width='192'>
+      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
+    </thumbnail>
+    <thumbnail height='119' name='mape paro' width='192'>
+      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
+      Uz9tP68ZFgAAAABJRU5ErkJggg==
+    </thumbnail>
+    <thumbnail height='119' name='rmse paro' width='192'>
+      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
+    </thumbnail>
+    <thumbnail height='119' name='rsq paro' width='192'>
+      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
+    </thumbnail>
+  </thumbnails>
+</workbook>
