@@ -145,7 +145,7 @@ stepwise_function <- function(indicator, gtrends) {
   df<- data.frame(indicator, gtrends_desest)
   
   # Realizar la regresión stepwise
-  model <- step(lm(indicator ~ ., data=df), direction="both")
+  model <- step(lm(indicator ~ ., data=df))
   
   # Calcular las predicciones
   predictions <- predict(model, df[, -1])
