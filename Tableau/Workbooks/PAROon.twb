@@ -406,6 +406,9 @@
           <aggregation value='true' />
         </view>
         <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' scope='cols' value='MAE' />
+          </style-rule>
           <style-rule element='mark'>
             <encoding attr='color' field='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' palette='red_10_0' type='interpolated' />
           </style-rule>
@@ -476,6 +479,9 @@
           <aggregation value='true' />
         </view>
         <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' scope='cols' value='MAPE' />
+          </style-rule>
           <style-rule element='cell'>
             <format attr='text-format' field='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' value='n#,##0.00;-#,##0.00' />
           </style-rule>
@@ -556,6 +562,9 @@
           <aggregation value='true' />
         </view>
         <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' scope='cols' value='RMSE' />
+          </style-rule>
           <style-rule element='mark'>
             <encoding attr='color' field='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' palette='blue_teal_10_0' type='interpolated' />
           </style-rule>
@@ -627,6 +636,9 @@
           <aggregation value='true' />
         </view>
         <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' scope='cols' value='RSQUARE' />
+          </style-rule>
           <style-rule element='cell'>
             <format attr='text-format' field='[federated.1q6p0jt0dat0rx1g6a2f11qjo8pn].[Multiple Values]' value='n#,##0.00;-#,##0.00' />
           </style-rule>
@@ -659,7 +671,7 @@
     </worksheet>
   </worksheets>
   <windows source-height='30'>
-    <window class='worksheet' name='mae paro'>
+    <window class='worksheet' maximized='true' name='mae paro'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -746,7 +758,7 @@
       </cards>
       <simple-id uuid='{286D7CE0-F045-45AD-A80E-7898BDEA09E8}' />
     </window>
-    <window class='worksheet' maximized='true' name='rsq paro'>
+    <window class='worksheet' name='rsq paro'>
       <cards>
         <edge name='left'>
           <strip size='160'>
